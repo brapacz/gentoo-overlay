@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repositories version="1.0">
+  <repo priority="50" status="unofficial">
+    <name>brapacz-overlay</name>
+    <description>Various packages.</description>
+    <homepage>https://github.com/brapacz/gentoo-overlay</homepage>
+    <owner>
+      <email>bartlomiej.rapacz@gmail.com</email>
+      <name>Bartłomiej Rapacz</name>
+    </owner>
+    <source type="git">git://github.com/brapacz/gentoo-overlay.git</source>
+    <feed>https://github.com/brapacz/gentoo-overlay/commits/master.atom</feed>
+  </repo>
+</repositories>
