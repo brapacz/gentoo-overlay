@@ -38,12 +38,10 @@ src_install(){
 	insinto ${EPREFIX}/
 	doins -r usr
 	doins -r opt
-	insinto ${EPREFIX}/usr/share/applications
-	doins opt/MessengerForDesktop/messengerfordesktop.desktop
-	fperms +x ${EPREFIX}/opt/MessengerForDesktop/after-install.sh
-	fperms +x ${EPREFIX}/opt/MessengerForDesktop/after-remove.sh
-	fperms +x ${EPREFIX}/opt/MessengerForDesktop/libffmpegsumo.so
-	fperms +x ${EPREFIX}/opt/MessengerForDesktop/Messenger
-	fperms +x ${EPREFIX}/opt/MessengerForDesktop/nw.pak
+
+	# insinto ${EPREFIX}/usr/share/applications
+	# doins usr/share/applications/messengerfordesktop.desktop
+
+	fperms +x ${EPREFIX}/opt/messengerfordesktop/messengerfordesktop
 
 }
