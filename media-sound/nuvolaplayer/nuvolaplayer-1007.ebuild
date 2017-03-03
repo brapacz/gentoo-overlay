@@ -4,18 +4,23 @@
 
 EAPI=5
 
-inherit bzr gnome2-utils vala waf-utils
+PYTHON_COMPAT=( python3_4 )
+PYTHON_REQ_USE='threads(+)'
+
+inherit bzr gnome2-utils vala python-single-r1 waf-utils
 
 DESCRIPTION="Cloud music integration for your Linux desktop"
 HOMEPAGE="https://launchpad.net/nuvola-player"
 
 EBZR_REPO_URI="lp:nuvola-player"
-# EBZR_REVISION="${PV}"
+EBZR_REVISION="${PV}"
 
 LICENSE="BSD-2"
 SLOT="0"
 KEYWORDS=""
 IUSE="debug"
+
+REQUIRED_USE=${PYTHON_REQUIRED_USE}
 
 RDEPEND="
 	x11-libs/gtk+:3
@@ -27,6 +32,7 @@ RDEPEND="
 	dev-libs/libunique:3
 	>=net-libs/libsoup-2.34
 	x11-libs/gdk-pixbuf[jpeg]
+	${PYTHON_DEPS}
 "
 DEPEND="${RDEPEND}
 	$(vala_depend)
@@ -42,19 +48,16 @@ src_prepare() {
 	bzr_src_prepare
 
 	# 0 fails the test in configure, so it fails if the code isnt under bzr
-	sed -i 's#revision = 0#revision = "0"#' waflib/nuvolaextras.py || die
+	sed -i 's#revision = 0#revision = "0"#' ./nuvolamergejs.py || die
 
 	# Fix build failure by using our own vapi file... I know
-	cp "${FILESDIR}/libnotify.vapi" "${S}/vapi" || die
+	cp -v "${FILESDIR}/libnotify.vapi" "${S}/vapi" || die
 
 	vala_src_prepare --ignore-use
 }
 
 src_configure() {
-	waf-utils_src_configure \
-		--no-svg-optimization \
-		--no-unity-quick-list \
-		--with-gstreamer=1.0
+	waf-utils_src_configure --allow-fuzzy-build
 }
 
 src_compile() {
